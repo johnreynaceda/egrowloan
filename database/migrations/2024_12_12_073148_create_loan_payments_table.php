@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('loan_payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('loan_id');
+            $table->double('amount');
+            $table->string('reference_number');
+            $table->string('proof_path');
             $table->timestamps();
         });
     }

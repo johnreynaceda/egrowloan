@@ -43,7 +43,7 @@
                 </nav>
             </div>
         </div>
-        <div class="mt-10 relative mx-auto max-w-7xl px-8">
+        <div class="mt-10 relative mx-auto max-w-7xl px-4">
             {{ $slot }}
         </div>
 

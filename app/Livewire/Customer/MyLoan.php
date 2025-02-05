@@ -3,12 +3,15 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Loan;
+use App\Models\LoanPayment;
 use App\Models\Shop\Product;
 use App\Models\User;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Form;
 use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
@@ -25,6 +28,19 @@ class MyLoan extends Component implements HasForms, HasTable
     use InteractsWithForms;
 
     public $loan;
+    public $reference_number, $photo = [];
+    public $payments;
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+
+                FileUpload::make('photo')->required(),
+                TextInput::make('reference_number')
+                    ->required(),
+            ]);
+    }
 
     public function table(Table $table): Table
     {
@@ -57,7 +73,6 @@ class MyLoan extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                // EditAction::make('edit')->color('success'),
                 DeleteAction::make('delete')->visible(fn($record) => $record->status == 'pending'),
             ])
             ->bulkActions([
@@ -65,9 +80,22 @@ class MyLoan extends Component implements HasForms, HasTable
             ]);
     }
 
+    public function payNow($total){
+      
+        foreach ($this->photo as $key => $value) {
+          LoanPayment::create([
+            'loan_id' => $this->loan->id,
+            'amount' => $total,
+            'reference_number' => $this->reference_number,
+            'proof_path' => $value->store('Proof', 'public'),
+          ]);
+        }
+    }
+
     public function render()
     {
         $this->loan = Loan::where('member_id', auth()->user()->member->id)->where('status', 'approved')->first();
+        $this->payments = LoanPayment::where('loan_id', $this->loan->id)->count();
         return view('livewire.customer.my-loan');
     }
 }

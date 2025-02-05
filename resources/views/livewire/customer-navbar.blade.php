@@ -47,7 +47,8 @@
                         href="#_">Transaction
                     </a> --}}
             <div class="md:ml-auto md:mr-20 2xl:block  flex flex-col space-x-4 items-center">
-                <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Home
+                <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
+                    href="{{ route('customer.dashboard') }}">Home
                 </a>
 
 
@@ -57,7 +58,7 @@
                     </a>
                 @endif
                 <a class="hover:text-green-500 py-2 focus:outline-none focus:text-gray-500 md:mr-auto"
-                    href="{{ route('customer.transactions') }}">Transactionss
+                    href="{{ route('customer.transactions') }}">Transactions
                 </a>
                 <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Profile
                 </a>
