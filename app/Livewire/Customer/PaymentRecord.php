@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Customer;
 
 use App\Models\LoanPayment;
@@ -19,7 +18,8 @@ class PaymentRecord extends Component implements HasForms, HasTable
 
     public $loan_id;
 
-    public function mount(){
+    public function mount()
+    {
         $this->loan_id = request('id');
     }
 
@@ -30,7 +30,7 @@ class PaymentRecord extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('created_at')->date()->label('DATE OF PAYMENT'),
                 TextColumn::make('amount')->label('AMOUNT')->formatStateUsing(
-                    fn($record) => '₱'.number_format($record->amount,2)
+                    fn($record) => '₱' . number_format($record->amount, 2)
                 ),
             ])
             ->filters([
