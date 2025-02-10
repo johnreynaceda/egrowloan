@@ -22,11 +22,14 @@
                                 $monthly_interest = $loan->amount * 0.05;
                                 $total_interest = $monthly_interest * 12;
                                 $monthly_payment = $loan->amount / 12;
+                                $total_payment = $loan->loanPayments->sum('amount');
+                                $remaining_payment = $loan->amount + $total_interest - $total_payment;
                             @endphp
                             <div>
                                 <h1 class="text-xl uppercase text-gray-700 font-bold">
 
-                                    &#8369;{{ number_format($loan->amount + $total_interest, 2) }}</h1>
+                                    &#8369;{{ number_format($remaining_payment, 2) }}
+                                </h1>
                                 <h1 class="text-xs text-gray-500 leading-3">Total payment with 5% per month.</h1>
                             </div>
                             <div class="">
@@ -35,19 +38,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-10">
-                            <h1 class="font-bold text-green-700 text-sm">PAYMENT THIS MONTH</h1>
-                            <div class="mt-3">
-                                <h1 class="text-xl uppercase text-gray-700 font-bold">
-                                    &#8369;{{ number_format($monthly_payment + $monthly_interest, 2) }}</h1>
-                                <h1 class="text-xs text-gray-500 leading-3">Monthly payment with 5% interest</h1>
+                        @if (12 - $payments > 0)
+                            <div class="mt-10">
+                                <h1 class="font-bold text-green-700 text-sm">PAYMENT THIS MONTH</h1>
+                                <div class="mt-3">
+                                    <h1 class="text-xl uppercase text-gray-700 font-bold">
+                                        &#8369;{{ number_format($monthly_payment + $monthly_interest, 2) }}</h1>
+                                    <h1 class="text-xs text-gray-500 leading-3">Monthly payment with 5% interest</h1>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-5 flex space-x-3">
-                            <x-button label="PAY NOW" squared positive class="font-medium" @click="modalOpen=true" />
-                            <x-button label="VIEW RECORD" squared warning class="font-medium"
-                                href="{{ route('customer.view-record', ['id' => $loan->id]) }}" />
-                        </div>
+                            <div class="mt-5 flex space-x-3">
+                                <x-button label="PAY NOW" squared positive class="font-medium"
+                                    @click="modalOpen=true" />
+                                @if (auth()->user()->user_type == 'staff')
+                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
+                                        href="{{ route('staff.view-record', $loan->id) }}" />
+                                @else
+                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
+                                        href="{{ route('customer.view-record', $loan->id) }}" />
+                                @endif
+                            </div>
+                        @endif
                     @else
                         <div class="grid mt-10 place-content-center">
                             <x-shared.loan class="2xl:h-40 h-20" />
@@ -104,12 +115,13 @@
                                     {{ $this->form }}
                                 </div>
                             </div>
+                            <div class="flex justify-end space-x-3 mt-5 items-center  py-3">
+                                <x-button label="Cancel" @click="modalOpen=false" slate squared outline />
+                                <x-button label="Submit Payment" squared positive
+                                    wire:click="payNow({{ $monthly_payment + $monthly_interest }})" />
+                            </div>
                         @endif
-                        <div class="flex justify-end space-x-3 mt-5 items-center  py-3">
-                            <x-button label="Cancel" @click="modalOpen=false" slate squared outline />
-                            <x-button label="Submit Payment" squared positive
-                                wire:click="payNow({{ $monthly_payment + $monthly_interest }})" />
-                        </div>
+
                     </div>
 
                 </div>

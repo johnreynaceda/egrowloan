@@ -1,19 +1,14 @@
 <?php
-
 namespace App\Livewire;
 
 use App\Models\Member;
-use App\Models\Shop\Product;
 use App\Models\User;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -30,44 +25,41 @@ class MemberList extends Component implements HasForms, HasTable
     {
         return $table
             ->query(Member::query())->headerActions([
-                CreateAction::make('new')->label('New Member')->icon('heroicon-o-plus')->color('success')->action(
-                    function($data){
-                        $user = User::create([
-                            'name' => $data['firstname']. ' ' .$data['lastname'],
-                            'email' => $data['email'],
-                            'password' => bcrypt($data['password']),
-                            'user_type' => $data['user_type'],
-                        ]);
+            CreateAction::make('new')->label('New Member')->icon('heroicon-o-plus')->color('success')->action(
+                function ($data) {
+                    $user = User::create([
+                        'name'      => $data['firstname'] . ' ' . $data['lastname'],
+                        'email'     => $data['email'],
+                        'password'  => bcrypt($data['password']),
+                        'user_type' => 'staff',
+                    ]);
 
-                        Member::create([
-                            'firstname' => $data['firstname'],
-                            'lastname' => $data['lastname'],
-                            'address' => $data['address'],
-                            'contact' => $data['contact'],
-                            'user_id' => $user->id,
-                        ]);
-                    }
-                )->form([
-                    Fieldset::make('MEMBER INFORMATION')->schema([
-                        TextInput::make('firstname')->required(),
-                        TextInput::make('lastname')->required(),
-                        TextInput::make('address')->required(),
-                        TextInput::make('contact')->required(),
-                    ]),
-                    Fieldset::make('USER INFORMATION')->schema([
+                    Member::create([
+                        'firstname' => $data['firstname'],
+                        'lastname'  => $data['lastname'],
+                        'address'   => $data['address'],
+                        'contact'   => $data['contact'],
+                        'user_id'   => $user->id,
+                    ]);
+                }
+            )->form([
+                Fieldset::make('MEMBER INFORMATION')->schema([
+                    TextInput::make('firstname')->required(),
+                    TextInput::make('lastname')->required(),
+                    TextInput::make('address')->required(),
+                    TextInput::make('contact')->required(),
+                ]),
+                Fieldset::make('USER INFORMATION')->schema([
 
                     TextInput::make('email')->email()->required(),
                     TextInput::make('password')->password()->required(),
-                    Select::make('user_type')->options([
-                        'staff' => 'Staff',
-                        'customer' => 'Customer',
-                    ])
-                    ]),
-                ])->modalWidth('2xl')->modalHeading('Create Member')
-            ])
+
+                ]),
+            ])->modalWidth('2xl')->modalHeading('Create Member'),
+        ])
             ->columns([
                 TextColumn::make('firstname')->label('FULLNAME')->formatStateUsing(
-                    fn($record) => ucfirst($record->firstname).' '. ucfirst($record->lastname)
+                    fn($record) => ucfirst($record->firstname) . ' ' . ucfirst($record->lastname)
                 )->searchable(),
                 TextColumn::make('user.email')->label('EMAIL')->searchable(),
                 TextColumn::make('address')->label('ADDRESS')->searchable(),
@@ -80,7 +72,7 @@ class MemberList extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                Action::make('view')->label('VIEW LOAN')->button()->color('success')->icon('heroicon-s-document-text')
+                Action::make('view')->label('VIEW LOAN')->button()->color('success')->icon('heroicon-s-document-text'),
             ])
             ->bulkActions([
                 // ...

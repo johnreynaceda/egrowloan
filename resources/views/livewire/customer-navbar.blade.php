@@ -47,21 +47,29 @@
                         href="#_">Transaction
                     </a> --}}
             <div class="md:ml-auto md:mr-20 2xl:block  flex flex-col space-x-4 items-center">
-                <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
-                    href="{{ route('customer.dashboard') }}">Home
-                </a>
-
-
-                @if (auth()->user()->member)
+                @if (auth()->user()->user_type == 'staff')
                     <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
-                        href="{{ route('customer.loans') }}">My Loan
+                        href="{{ route('staff.dashboard') }}">My Loan
                     </a>
-                @endif
-                <a class="hover:text-green-500 py-2 focus:outline-none focus:text-gray-500 md:mr-auto"
-                    href="{{ route('customer.transactions') }}">Transactions
-                </a>
-                <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Profile
-                </a>
+                    <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
+                        href="{{ route('staff.my-payments') }}">Payments
+                    </a>
+                @else
+                    <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
+                        href="{{ route('customer.dashboard') }}">Home
+                    </a>
+
+
+                    @if (auth()->user()->member)
+                        <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto"
+                            href="{{ route('customer.loans') }}">My Loan
+                        </a>
+                    @endif
+                    <a class="hover:text-green-500 py-2 focus:outline-none focus:text-gray-500 md:mr-auto"
+                        href="{{ route('customer.transactions') }}">Transactions
+                    </a>
+                    <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Profile
+                    </a>
             </div>
             <div class="md:ml-auto md:mr-20 hidden flex  space-x-4 items-center">
                 <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Home
@@ -76,29 +84,32 @@
                 </a>
                 <a class="hover:text-black focus:outline-none focus:text-gray-500 md:mr-auto" href="#_">Profile
                 </a>
+                @endif
             </div>
             <div x-data="{
                 dropdownOpen: false
             }" class="relative flex space-x-3 items-center">
-                <div @click="cart = true" class="relative mr-4 cursor-pointer hover:scale-95 2xl:block hidden ">
-                    <div class="absolute -top-1 -right-2" positive>
-                        <div class="px-1  pt-[0.1rem] text-sm rounded-md font-medium text-white bg-green-600">
-                            {{ $cart->count() }}</div>
+                @if (!auth()->user()->user_type == 'staff')
+                    <div @click="cart = true" class="relative mr-4 cursor-pointer hover:scale-95 2xl:block hidden ">
+                        <div class="absolute -top-1 -right-2" positive>
+                            <div class="px-1  pt-[0.1rem] text-sm rounded-md font-medium text-white bg-green-600">
+                                {{ $cart->count() }}</div>
+                        </div>
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="text-"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-basket">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path
+                                    d="M5.001 8h13.999a2 2 0 0 1 1.977 2.304l-1.255 7.152a3 3 0 0 1 -2.966 2.544h-9.512a3 3 0 0 1 -2.965 -2.544l-1.255 -7.152a2 2 0 0 1 1.977 -2.304z" />
+                                <path d="M17 10l-2 -6" />
+                                <path d="M7 10l2 -6" />
+                            </svg>
+                        </div>
                     </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="text-"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-basket">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M10 14a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                            <path
-                                d="M5.001 8h13.999a2 2 0 0 1 1.977 2.304l-1.255 7.152a3 3 0 0 1 -2.966 2.544h-9.512a3 3 0 0 1 -2.965 -2.544l-1.255 -7.152a2 2 0 0 1 1.977 -2.304z" />
-                            <path d="M17 10l-2 -6" />
-                            <path d="M7 10l2 -6" />
-                        </svg>
-                    </div>
-                </div>
+                @endif
 
                 <button @click="dropdownOpen=true"
                     class="inline-flex items-center justify-center h-12 py-2 pl-3 pr-12 text-sm font-medium transition-colors bg-white border rounded-md text-neutral-700 hover:bg-neutral-100 active:bg-white focus:bg-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
