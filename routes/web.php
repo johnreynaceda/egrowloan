@@ -64,6 +64,12 @@ Route::prefix('staff')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('staff.dashboard');
     })->name('staff.dashboard');
+    Route::get('/loans', function () {
+        return view('staff.loans');
+    })->name('staff.loans');
+    Route::get('/transactions', function () {
+        return view('staff.transactions');
+    })->name('staff.transactions');
     Route::get('/view-record/{id}', function () {
         return view('staff.view-record');
     })->name('staff.view-record');
