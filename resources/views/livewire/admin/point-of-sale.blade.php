@@ -40,11 +40,10 @@
                 <h1 class="text-2xl font-bold text-green-700">MENU</h1>
                 <div class="mt-5">
                     <div class="flex space-x-3 items-center">
-                        <x-button slate flat class="font-semibold" label="All"
-                            wire:click="$set('active_cat', null)" />
+                        <x-button slate flat class="font-semibold" label="All" wire:click="$set('active_cat', null)" />
                         @foreach ($categories as $cat)
-                            <x-button slate flat class="font-semibold"
-                                wire:click="$set('active_cat', {{ $cat->id }})" label="{{ $cat->name }}" />
+                            <x-button slate flat class="font-semibold" wire:click="$set('active_cat', {{ $cat->id }})"
+                                label="{{ $cat->name }}" />
                         @endforeach
                     </div>
                 </div>
@@ -54,8 +53,7 @@
                             class="bg-white hover:bg-gray-100 cursor-pointer shadow rounded-xl p-5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 text-green-600" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-paper-bag">
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-paper-bag">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path
                                     d="M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2z" />
@@ -65,8 +63,7 @@
                             </svg>
                             <div class="mt-2 text-sm ">
                                 <p class="uppercase font-semibold">{{ $prod->name }}</p>
-                                <span
-                                    class="text-gray-700 font-medium">&#8369;{{ number_format($prod->amount, 2) }}</span>
+                                <span class="text-gray-700 font-medium">&#8369;{{ number_format($prod->amount, 2) }}</span>
                             </div>
                         </div>
                     @empty
@@ -78,15 +75,17 @@
             <div class="bg-white p-5 px-7 py-8 shadow-lg">
                 <div class="flex justify-between items-end border-b pb-2 text-gray-700">
                     <h1 class="text-lg">Prepared Orders</h1>
-                    <div><svg xmlns="http://www.w3.org/2000/svg" class="" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                            <path d="M16 5l3 3" />
-                        </svg></div>
+                    <div>
+                        @if ($transaction_id)
+                            @if ($transaction->status == 'approved')
+                                <x-badge label="Approved" positive icon="hand-thumb-up" flat />
+                            @else
+                                <x-button label="Approve" outline squared positive right-icon="hand-thumb-up"
+                                    wire:click="approveOrder({{$transaction_id}})"
+                                    spinner="approveOrder({{$transaction_id}})" />
+                            @endif
+                        @endif
+                    </div>
                 </div>
                 <div class="h-96 mt-5">
                     <ul role="list" class="-my-6 divide-y divide-gray-200 mt-5">
@@ -94,47 +93,48 @@
                             $subtotal = 0;
                         @endphp
                         @forelse ($transaction_id != null ? $cart : $carts as $item)
-                            @php
-                                $itemTotal = $item->menu->amount * $item->quantity;
-                                $subtotal += $itemTotal;
-                            @endphp
-                            <li class="flex py-2 ">
-                                <div
-                                    class="h-24 w-24 flex-shrink-0 overflow-hidden grid place-content-center rounded-md border border-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 text-green-600"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2z" />
-                                        <path d="M14 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                        <path d="M6 21a2 2 0 0 0 2 -2v-5.82a5 5 0 0 0 -.528 -2.236l-1.472 -2.944" />
-                                        <path d="M11 7h2" />
-                                    </svg>
-                                </div>
+                                                @php
+                                                    $itemTotal = $item->menu->amount * $item->quantity;
+                                                    $subtotal += $itemTotal;
+                                                @endphp
+                                                <li class="flex py-2 ">
+                                                    <div
+                                                        class="h-24 w-24 flex-shrink-0 overflow-hidden grid place-content-center rounded-md border border-gray-200">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-20 text-green-600" viewBox="0 0 24 24"
+                                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                            <path
+                                                                d="M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2z" />
+                                                            <path d="M14 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                                            <path d="M6 21a2 2 0 0 0 2 -2v-5.82a5 5 0 0 0 -.528 -2.236l-1.472 -2.944" />
+                                                            <path d="M11 7h2" />
+                                                        </svg>
+                                                    </div>
 
-                                <div class="ml-4 flex flex-1 flex-col">
-                                    <div>
-                                        <div class="flex justify-between text-base font-medium text-gray-900">
-                                            <h3>
-                                                <a href="#" class="uppercase">{{ $item->menu->name }}</a>
-                                            </h3>
-                                            <p class="ml-4">
-                                                &#8369;{{ number_format($itemTotal, 2) }}</p>
-                                        </div>
-                                        <p class="mt-1 text-sm text-gray-500">
-                                            {{ $item->menu->category->name }}</p>
-                                    </div>
-                                    <div class="flex flex-1 items-end justify-between text-sm">
-                                        <p class="text-gray-500">Qty {{ $item->quantity }}</p>
+                                                    <div class="ml-4 flex flex-1 flex-col">
+                                                        <div>
+                                                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                                                <h3>
+                                                                    <a href="#" class="uppercase">{{ $item->menu->name }}</a>
+                                                                </h3>
+                                                                <p class="ml-4">
+                                                                    &#8369;{{ number_format($itemTotal, 2) }}</p>
+                                                            </div>
+                                                            <p class="mt-1 text-sm text-gray-500">
+                                                                {{ $item->menu->category->name }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex flex-1 items-end justify-between text-sm">
+                                                            <p class="text-gray-500">Qty {{ $item->quantity }}</p>
 
-                                        <div class="flex">
-                                            <button type="button" wire:click="removeToCart(sd)"
-                                                class="font-medium text-red-600 hover:text-red-500">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                                            <div class="flex">
+                                                                <button type="button" wire:click="removeToCart({{$item->id}})"
+                                                                    class="font-medium text-red-600 hover:text-red-500">Remove</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
                         @empty
                             <li class="text-gray-500 text-center">Your cart is empty.</li>
                         @endforelse
@@ -145,9 +145,15 @@
                     <p>&#8369;{{ number_format($subtotal, 2) }}</p>
                 </div>
                 <div class="mt-5">
-                    <x-button label="PROCEED TO PAYMENT" slate lg class="w-full font-semibold" right-icon="arrow-right"
-                        wire:click="proceedPayment({{ $subtotal }})"
-                        spinner="proceedPayment({{ $subtotal }})" />
+                    @if ($transaction_id)
+                        <x-button label="PROCEED TO PAYMENT" slate :disabled="$transaction->status != 'approved'" lg
+                            class="w-full font-semibold" right-icon="arrow-right"
+                            wire:click="proceedPayment({{ $subtotal }})" spinner="proceedPayment({{ $subtotal }})" />
+                    @else
+                        <x-button label="PROCEED TO PAYMENT" :disabled="$cart != null" slate lg class="w-full font-semibold"
+                            right-icon="arrow-right" wire:click="proceedPayment({{ $subtotal }})"
+                            spinner="proceedPayment({{ $subtotal }})" />
+                    @endif
                 </div>
             </div>
         </div>

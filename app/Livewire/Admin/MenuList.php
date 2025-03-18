@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Menu;
-use App\Models\Shop\Product;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ViewField;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\Action;
@@ -32,29 +29,19 @@ class MenuList extends Component implements HasForms, HasTable
     {
         return $table
             ->query(Menu::query())->headerActions([
+            Action::make('category')->label('New Category')->icon('heroicon-o-squares-plus')->url(fn(): string => route('admin.category')),
+           
+            CreateAction::make('create')->label('New Menu')->icon('heroicon-o-plus')->form([
+                TextInput::make('name')->required(),
+                TextInput::make('amount')->required()->numeric(),
+                Select::make('category_id')->label('Category')->options(Category::all()->pluck('name', 'id'))->required(),
 
-                Action::make('category')->label('New Category')->icon('heroicon-o-squares-plus')->action(
-                    function($data){
-                        Category::create([
-                            'name' => $data['category_name'],
-                        ]);
-                    }
-                )->form([
-                    ViewField::make('rating')
-                    ->view('filament.forms.category'),
-                    TextInput::make('category_name')->required(),
-                ])->modalWidth('xl'),
-                CreateAction::make('create')->label('New Menu')->icon('heroicon-o-plus')->form([
-                    TextInput::make('name')->required(),
-                    TextInput::make('amount')->required()->numeric(),
-                    Select::make('category_id')->label('Category')->options(Category::all()->pluck('name', 'id'))->required(),
-
-                ])->color('success')->modalWidth('xl'),
-            ])
+            ])->color('success')->modalWidth('xl'),
+        ])
             ->columns([
                 TextColumn::make('name')->label('NAME')->searchable(),
                 TextColumn::make('amount')->label('AMOUNT')->formatStateUsing(
-                    fn($record) => '₱'.number_format($record->amount,2)
+                    fn($record) => '₱' . number_format($record->amount, 2)
                 )->searchable(),
                 TextColumn::make('category.name')->label('CATEGORY')->searchable(),
                 TextColumn::make('quantity')->label('STOCKS')->searchable(),
@@ -69,13 +56,13 @@ class MenuList extends Component implements HasForms, HasTable
                     Select::make('category_id')->label('Category')->options(Category::all()->pluck('name', 'id'))->required(),
                 ])->modalWidth('xl'),
                 Action::make('stock')->color('success')->action(
-                    function($record,$data){
+                    function ($record, $data) {
                         $record->update([
                             'quantity' => $data['quantity'],
                         ]);
                     }
                 )->form(
-                    function($record){
+                    function ($record) {
                         return [
                             TextInput::make('quantity')->required()->numeric()->default($record->quantity),
                         ];

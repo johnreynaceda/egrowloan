@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Transaction;
 use Livewire\Attributes\On;
@@ -37,7 +38,12 @@ class CustomerNavbar extends Component
                 'transaction_id' => $trans->id,
                 'status' => 1,
             ]);
-            # code...
+
+           $menu = Menu::where('id', $value->menu_id)->first();
+
+            $menu->update([
+                'quantity' => $menu->quantity - $value->quantity,
+            ]);
         }
 
 

@@ -7,9 +7,9 @@
             <div class="border border-green-500 rounded-xl p-2 ">
                 <div class="bg-white rounded-lg p-5">
                     <div class="flex space-x-2 text-gray-600 items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="lucide lucide-wallet">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-wallet">
                             <path
                                 d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
                             <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
@@ -17,48 +17,51 @@
                         <h1 class="font-bold text-main">Active Loan</h1>
                     </div>
                     @if ($loan)
-                        <div class="mt-5 flex justify-between items-center">
-                            @php
-                                $monthly_interest = $loan->amount * 0.05;
-                                $total_interest = $monthly_interest * 12;
-                                $monthly_payment = $loan->amount / 12;
-                                $total_payment = $loan->loanPayments->sum('amount');
-                                $remaining_payment = $loan->amount + $total_interest - $total_payment;
-                            @endphp
-                            <div>
-                                <h1 class="text-xl uppercase text-gray-700 font-bold">
+                                        <div class="mt-5 flex justify-between items-center">
+                                            @php
+                                                $monthly_interest = $loan->amount * ($loan->loanTerm->monthly_interest / 100);
+                                                $total_interest = $monthly_interest * $loan->loanTerm->number_of_months;
+                                                $monthly_payment = $loan->amount / $loan->loanTerm->number_of_months;
+                                                $total_payment = $loan->loanPayments->sum('amount');
+                                                $remaining_payment = $loan->amount + $total_interest - $total_payment;
+                                            @endphp
+                                            <div>
+                                                <h1 class="text-xl uppercase text-gray-700 font-bold">
 
-                                    &#8369;{{ number_format($remaining_payment, 2) }}
-                                </h1>
-                                <h1 class="text-xs text-gray-500 leading-3">Total payment with 5% per month.</h1>
-                            </div>
-                            <div class="">
-                                <div class=" p-4 rounded-xl font-bold text-gray-700 bg-gray-100">
-                                    {{ 12 - $payments }}
-                                </div>
-                            </div>
-                        </div>
-                        @if (12 - $payments > 0)
-                            <div class="mt-10">
-                                <h1 class="font-bold text-green-700 text-sm">PAYMENT THIS MONTH</h1>
-                                <div class="mt-3">
-                                    <h1 class="text-xl uppercase text-gray-700 font-bold">
-                                        &#8369;{{ number_format($monthly_payment + $monthly_interest, 2) }}</h1>
-                                    <h1 class="text-xs text-gray-500 leading-3">Monthly payment with 5% interest</h1>
-                                </div>
-                            </div>
-                            <div class="mt-5 flex space-x-3">
-                                <x-button label="PAY NOW" squared positive class="font-medium"
-                                    @click="modalOpen=true" />
-                                @if (auth()->user()->user_type == 'staff')
-                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
-                                        href="{{ route('staff.view-record', $loan->id) }}" />
-                                @else
-                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
-                                        href="{{ route('customer.view-record', $loan->id) }}" />
-                                @endif
-                            </div>
-                        @endif
+                                                    &#8369;{{ number_format($remaining_payment, 2) }}
+                                                </h1>
+                                                <h1 class="text-xs text-gray-500 leading-3">Total payment with
+                                                    {{$loan->loanTerm->monthly_interest}}% per month.
+                                                </h1>
+                                            </div>
+                                            <div class="">
+                                                <div class=" p-4 rounded-xl font-bold text-gray-700 bg-gray-100">
+                                                    {{ $loan->loanTerm->number_of_months - $payments }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($loan->loanTerm->number_of_months - $payments > 0)
+                                            <div class="mt-10">
+                                                <h1 class="font-bold text-green-700 text-sm">PAYMENT THIS MONTH</h1>
+                                                <div class="mt-3">
+                                                    <h1 class="text-xl uppercase text-gray-700 font-bold">
+                                                        &#8369;{{ number_format($monthly_payment + $monthly_interest, 2) }}</h1>
+                                                    <h1 class="text-xs text-gray-500 leading-3">Monthly payment with
+                                                        {{$loan->loanTerm->monthly_interest}}% interest
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                            <div class="mt-5 flex space-x-3">
+                                                <x-button label="PAY NOW" squared positive class="font-medium" @click="modalOpen=true" />
+                                                @if (auth()->user()->user_type == 'staff')
+                                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
+                                                        href="{{ route('staff.view-record', $loan->id) }}" />
+                                                @else
+                                                    <x-button label="VIEW RECORD" squared warning class="font-medium"
+                                                        href="{{ route('customer.view-record', $loan->id) }}" />
+                                                @endif
+                                            </div>
+                                        @endif
                     @else
                         <div class="grid mt-10 place-content-center">
                             <x-shared.loan class="2xl:h-40 h-20" />
@@ -107,7 +110,8 @@
                                     <div class="mt-3">
                                         <h1 class="text-xl uppercase text-gray-700 font-bold">
                                             &#8369;{{ number_format($monthly_payment + $monthly_interest, 2) }}</h1>
-                                        <h1 class="text-xs text-gray-500 leading-3">Monthly payment with 5% interest
+                                        <h1 class="text-xs text-gray-500 leading-3">Monthly payment with
+                                            {{$loan->loanTerm->monthly_interest}}% interest
                                         </h1>
                                     </div>
                                 </div>

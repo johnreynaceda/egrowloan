@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('loan_terms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id');
-            $table->foreignId('loan_term_id');
-            $table->string('type');
-            $table->double('amount');
-            $table->string('status')->default('pending');
-            $table->string('payment_status')->nullable();
+            $table->string('name');
+            $table->integer('monthly_interest');
+            $table->integer('number_of_months');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loans');
+        Schema::dropIfExists('loan_terms');
     }
 };

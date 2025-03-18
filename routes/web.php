@@ -35,6 +35,9 @@ Route::prefix('administrator')->middleware(['auth', 'verified'])->group(function
     Route::get('/members', function () {
         return view('admin.members');
     })->name('admin.members');
+    Route::get('/category', function () {
+        return view('admin.category');
+    })->name('admin.category');
     Route::get('/loans', function () {
         return view('admin.loans');
     })->name('admin.loans');
@@ -44,6 +47,12 @@ Route::prefix('administrator')->middleware(['auth', 'verified'])->group(function
     Route::get('/sales', function () {
         return view('admin.sales');
     })->name('admin.sales');
+    Route::get('/term', function () {
+        return view('admin.term');
+    })->name('admin.term');
+    Route::get('/reports', function () {
+        return view('admin.reports');
+    })->name('admin.reports');
 });
 
 Route::prefix('customer')->middleware(['auth', 'verified'])->group(function () {

@@ -72,7 +72,7 @@ class MemberList extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                Action::make('view')->label('VIEW LOAN')->button()->color('success')->icon('heroicon-s-document-text'),
+                // Action::make('view')->label('VIEW LOAN')->button()->color('success')->icon('heroicon-s-document-text'),
             ])
             ->bulkActions([
                 // ...

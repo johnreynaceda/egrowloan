@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin;
 
+use App\Jobs\PaymentReminder;
 use App\Models\Loan;
+use App\Models\LoanPayment;
 use App\Models\Shop\Product;
 use App\Models\User;
 use Filament\Forms\Components\Select;
@@ -49,7 +51,17 @@ class LoanList extends Component implements HasForms, HasTable
                     Action::make('approve')->label('Approve Loan')->color('success')->icon('heroicon-c-hand-thumb-up')->action(
                         function($record) {
                             $record->update(['status' => 'approved', 'payment_status' => 'active']);
+                            $loan = $record;
 
+                            $monthly_interest = $loan->amount * ($loan->loanTerm->monthly_interest / 100) ;
+                            $total_interest = $monthly_interest * $loan->loanTerm->number_of_months;
+                            $monthly_payment = $loan->amount / $loan->loanTerm->number_of_months;
+                            $total_payment = $loan->loanPayments->sum('amount');
+                            $remaining_payment = $loan->amount + $total_interest - $total_payment;
+
+                            $monthly_now = $monthly_payment + $monthly_interest;
+
+                            PaymentReminder::dispatch($record->member->contact, $monthly_now, now()->addMonth())->delay(now()->addMinutes(2));
                         }
                     ),
                     Action::make('reject')->label('Reject Loan')->color('danger')->icon('heroicon-c-hand-thumb-down')->action(

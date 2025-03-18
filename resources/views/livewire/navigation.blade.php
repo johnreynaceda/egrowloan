@@ -69,8 +69,8 @@
                                         <a href="{{ route('admin.dashboard') }}"
                                             class="{{ request()->routeIs('admin.dashboard') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-dashboard">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
@@ -83,15 +83,15 @@
                                     <li>
                                         <a href="{{ route('admin.members') }}"
                                             class="{{ request()->routeIs('admin.members') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white"">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-users">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                            <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
                                             </svg>
                                             Members
                                         </a>
@@ -100,8 +100,8 @@
                                         <a href="{{ route('admin.menu') }}"
                                             class="{{ request()->routeIs('admin.menu') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-paper-bag">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path
@@ -118,8 +118,28 @@
                                         <a href="{{ route('admin.loans') }}"
                                             class="{{ request()->routeIs('admin.loans') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-building-bank">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M3 21l18 0" />
+                                                <path d="M3 10l18 0" />
+                                                <path d="M5 6l7 -3l7 3" />
+                                                <path d="M4 10l0 11" />
+                                                <path d="M20 10l0 11" />
+                                                <path d="M8 14l0 3" />
+                                                <path d="M12 14l0 3" />
+                                                <path d="M16 14l0 3" />
+                                            </svg>
+                                            Loans
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{route('admin.term')}}"
+                                            class="{{ request()->routeIs('admin.term') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-building-bank">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M3 21l18 0" />
@@ -138,8 +158,8 @@
                                         <a href="{{ route('admin.loans') }}"
                                             class="{{ request()->routeIs('admin.loans') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
                                                 class="icon icon-tabler icons-tabler-outline icon-tabler-building-bank">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M3 21l18 0" />
@@ -163,9 +183,9 @@
                             <li>
                                 <a href="#"
                                     class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-report-money">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path
@@ -181,9 +201,9 @@
                             <li>
                                 <a href="{{ route('admin.users') }}"
                                     class="{{ request()->routeIs('admin.users') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
@@ -202,13 +222,12 @@
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a href="route('logout')"
-                                        onclick="event.preventDefault();
+                                    <a href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();"
                                         class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-red-600  hover:text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
@@ -243,9 +262,9 @@
                             <li>
                                 <a href="{{ route('admin.dashboard') }}"
                                     class=" {{ request()->routeIs('admin.dashboard') ? 'bg-green-600 text-white' : '' }}  group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-dashboard">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M12 13m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
@@ -258,9 +277,9 @@
                             <li>
                                 <a href="{{ route('admin.members') }}"
                                     class="{{ request()->routeIs('admin.members') ? 'bg-green-600 text-white' : '' }}  group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-users">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -274,9 +293,9 @@
                             <li>
                                 <a href="{{ route('admin.menu') }}"
                                     class=" {{ request()->routeIs('admin.menu') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-paper-bag">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path
@@ -291,9 +310,9 @@
                             <li>
                                 <a href="{{ route('admin.loans') }}"
                                     class="{{ request()->routeIs('admin.loans') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-building-bank">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M3 21l18 0" />
@@ -305,15 +324,30 @@
                                         <path d="M12 14l0 3" />
                                         <path d="M16 14l0 3" />
                                     </svg>
-                                    Loans
+                                    Loan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.term')}}"
+                                    class="{{ request()->routeIs('admin.term') ? 'bg-green-600 text-white' : 'text-green-600' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6  hover:bg-green-600 hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-receipt-text">
+                                        <path
+                                            d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+                                        <path d="M14 8H8" />
+                                        <path d="M16 12H8" />
+                                        <path d="M13 16H8" />
+                                    </svg>
+                                    Loan Term
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('admin.pos') }}"
                                     class="{{ request()->routeIs('admin.pos') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-cash-register">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path
@@ -338,12 +372,12 @@
 
                 </ul>
                 <ul class="mb-10 space-y-2">
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.sales') }}"
                             class="{{ request()->routeIs('admin.sales') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-report-money">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path
@@ -355,13 +389,26 @@
                             </svg>
                             Sales
                         </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('admin.reports') }}"
+                            class="{{ request()->routeIs('admin.reports') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-file-chart-line">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                                <path d="m16 13-3.5 3.5-2-2L8 17" />
+                            </svg>
+                            Reports
+                        </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.users') }}"
                             class="{{ request()->routeIs('admin.users') ? 'bg-green-600 text-white' : '' }} group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-green-600 hover:bg-green-600 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-user-cog">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
@@ -380,13 +427,12 @@
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a href="route('logout')"
-                                onclick="event.preventDefault();
+                            <a href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();"
                                 class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-red-600 hover:bg-red-400 hover:text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path

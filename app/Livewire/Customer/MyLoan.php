@@ -1,10 +1,13 @@
 <?php
 namespace App\Livewire\Customer;
 
+use App\Jobs\PaymentReminder;
 use App\Models\Loan;
 use App\Models\LoanPayment;
+use App\Models\LoanTerm;
 use App\Models\User;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -47,11 +50,20 @@ class MyLoan extends Component implements HasForms, HasTable
             )->label('New Loan')->icon('heroicon-o-plus')->color('success')->action(
                 function ($data) {
                     Loan::create([
+                        'loan_term_id' => $data['loan_term_id'],
+                        'type' => $data['loan_type'],
                         'member_id' => auth()->user()->member->id,
                         'amount'    => $data['amount'],
                     ]);
                 }
             )->form([
+                Select::make('loan_type')->options([
+                    'Regular Loan' => 'Regular Loan',
+                    'Commodity Loan' => 'Commodity Loan',
+                    'Emergency Loan' => 'Emergency Loan',
+                ]),
+                Select::make('loan_term_id')->label('Loan Term')->options(LoanTerm::all()->pluck('name', 'id')),
+               
                 TextInput::make('amount')->required()->label('Loan Amount')->prefix('₱')->numeric(),
             ])->modalWidth('xl')->modalHeading('Request for Loan'),
         ])
@@ -92,17 +104,25 @@ class MyLoan extends Component implements HasForms, HasTable
 
         $this->photo            = [];
         $this->reference_number = '';
+
+        PaymentReminder::dispatch($this->loan->member->contact, $total, now()->addMonth())->delay(now()->addMinutes(1));
         return redirect()->route('customer.loans');
     }
 
     public function render()
     {
 
-        $this->loan = Loan::where('member_id', auth()->user()->member->id)->where('status', 'approved')->first();
-
+        $this->loan = Loan::where('member_id', auth()->user()->member->id)->where('status', 'approved')->where('payment_status', '!=', 'paid')->first();    
+       
         $this->payments = LoanPayment::when($this->loan, function ($record) {
             return $record->where('loan_id', $this->loan->id);
         })->count();
+       if ($this->loan) {
+        $remaining_payments = $this->loan->loanTerm->number_of_months - $this->payments;
+        if ($remaining_payments == 0) {
+            $this->loan->update(['payment_status' => 'paid']);
+        }
+       }
         return view('livewire.customer.my-loan');
     }
 }
